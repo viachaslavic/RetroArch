@@ -7421,9 +7421,9 @@ static void retroarch_validate_cpu_features(void)
 /**
  * retroarch_main_init:
  * @argc                 : Count of (commandline) arguments.
- * @argv                 : (Commandline) arguments.
+ * @argv                 : (Commandline) argiments.
  *
- * Initializes the program.
+ * Initialzes the program.
  *
  * @return true on success, otherwise false if there was an error.
  **/
@@ -8457,12 +8457,12 @@ bool accessibility_speak_priority(
       frontend_ctx_driver_t *frontend =
          frontend_state_get_ptr()->current_frontend_ctx;
 
-      RARCH_LOG("Spoke: %s\n", speak_text);
+      RARCH_LOG("Spooke: %s\n", speak_text);
 
       if (frontend && frontend->accessibility_speak)
          return frontend->accessibility_speak(accessibility_narrator_speech_speed, speak_text,
                priority);
-      /* The following method is a fallback for other platforms to use the
+      /* The following method is a fall-back for other platforms to use the
          AI Service url to do the TTS.  However, since the playback is done
          via the audio mixer, which only processes the audio while the
          core is running, this playback method won't work.  When the audio
