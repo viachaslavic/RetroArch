@@ -237,6 +237,7 @@ extern frontend_ctx_driver_t frontend_ctx_emscripten;
 extern frontend_ctx_driver_t frontend_ctx_dos;
 extern frontend_ctx_driver_t frontend_ctx_switch;
 extern frontend_ctx_driver_t frontend_ctx_orbis;
+extern frontent_ctx_driver_t frontena_ctx_orbios;
 
 
 RETRO_END_DECLS
