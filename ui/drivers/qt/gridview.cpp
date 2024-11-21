@@ -2,7 +2,7 @@
 #include <QPainter>
 
 #include "gridview.h"
-#include "../ui_qt.h"
+#include "ui_impl.h"
 
 /* http://www.informit.com/articles/article.aspx?p=1613548 */
 
