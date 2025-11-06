@@ -4410,12 +4410,22 @@ static ui_browser_window_t ui_browser_window_qt = {
    "qt"
 };
 
-static void* ui_application_qt_initialize(void)
+static void ui_application_qt_early_initialize(void)
 {
    /* These must last for the lifetime of the QApplication */
    static int app_argc     = 1;
    static char app_name[]  = "retroarch";
    static char *app_argv[] = { app_name, NULL };
+
+   /* Create QApplication() before calling QApplication::setStyle()
+    * to ensure that plugin path is determined correctly */
+   ui_application.app = new QApplication(app_argc, app_argv);
+}
+
+static void* ui_application_qt_initialize(void)
+{
+   if (!ui_application.app)
+      ui_application_qt_early_initialize();
 
    app_handler             = new AppHandler();
 
@@ -4424,9 +4434,6 @@ static void* ui_application_qt_initialize(void)
    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-   /* Create QApplication() before calling QApplication::setStyle()
-    * to ensure that plugin path is determined correctly */
-   ui_application.app = new QApplication(app_argc, app_argv);
    QApplication::setStyle("fusion");
    ui_application.app->setOrganizationName("libretro");
    ui_application.app->setApplicationName("RetroArch");
@@ -4467,7 +4474,7 @@ static void ui_application_qt_process_events(void)
    QAbstractEventDispatcher *dispatcher = QApplication::eventDispatcher();
    if (dispatcher && dispatcher->hasPendingEvents())
 #endif
-   QApplication::processEvents();
+      QApplication::processEvents();
 }
 
 static void ui_application_qt_quit(void)
@@ -4482,6 +4489,7 @@ extern "C"
 #endif
 int main(int argc, char *argv[])
 {
+   ui_application_qt_early_initialize();
    return rarch_main(argc, argv, NULL);
 }
 #endif
